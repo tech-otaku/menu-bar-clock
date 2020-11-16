@@ -9,7 +9,7 @@
 
 
 # Exit with error if installed macOS version is not 11
-    if [ $(system_profiler SPSoftwareDataType | awk '/System Version/ {print $4}' | cut -d . -f 1) -lt 10 ]; then
+    if [ $(system_profiler SPSoftwareDataType | awk '/System Version/ {print $4}' | cut -d . -f 1) -lt 11 ]; then
         printf "ERROR: For use with macOS 11 Big Sur only.\n"
         exit 1
     fi
