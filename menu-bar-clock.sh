@@ -50,16 +50,14 @@ if [ -z $invalid ]; then
 
     # 24-hour time
     if [[ $1 == *"HH:mm"* ]]; then
-        #defaults delete -g AppleICUForce12HourTime 
+        defaults delete -g AppleICUForce12HourTime > /dev/null 2>&1
         defaults write com.apple.menuextra.clock.plist Show24Hour -bool true
-        action="check"
     fi    
     
     # 12-hour time
     if [[ $1 == *"h:mm"* ]]; then
-        #defaults write -g AppleICUForce12HourTime -bool true
+        defaults write -g AppleICUForce12HourTime -bool true
         defaults write com.apple.menuextra.clock.plist Show24Hour -bool false
-        action="uncheck"
     fi
 
     # Seconds
@@ -76,9 +74,8 @@ if [ -z $invalid ]; then
         defaults write com.apple.menuextra.clock.plist ShowAMPM -bool false
         
     fi
-        
-    printf  "Please %s '24-Hour Time' in System Preferences > Language & Region > General\n" $action
     
+    killall ControlCenter
 
 else
 
