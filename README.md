@@ -6,9 +6,9 @@ Set the date and time format of the menu bar clock from the command line in macO
 
 ## Instructions
 
-1. [Download](https://github.com/tech-otaku/menu-bar-clock/archive/main.zip) menu-bar-clock.sh.
+1. Download [menu-bar-clock-main.zip](https://github.com/tech-otaku/menu-bar-clock/archive/main.zip) 
 
-1. Double-click `~/Downloads/menu-bar-clock-main.zip` to unzip it (Safari may do this automatically). 
+1. Double-click `~/Downloads/menu-bar-clock-main.zip` in the Finder to unzip it (Safari may do this automatically)
 
 1. Open the Terminal application in macOS
 
