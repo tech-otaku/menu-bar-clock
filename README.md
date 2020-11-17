@@ -18,7 +18,7 @@ Set the date and time format of the menu bar clock from the command line in macO
 
     1. type `chmod +x menu-bar-clock.sh` and press enter to make the script executable
 
-    1. use one of the commands under the *Command Line* heading in the table below to set the required date and time format.  
+    1. use one of the commands under the *Command Line* heading in the table below to set the required date and time format
 
 
 ## Usage
@@ -74,24 +74,26 @@ In macOS Big Sur the structure of `com.apple.menuextra.clock.plist` has changed:
 <plist version="1.0">
 <dict>
 	<key>DateFormat</key>
-	<string>h:mm a</string>
+	<string>EEE d MMM HH:mm</string>
 	<key>FlashDateSeparators</key>
 	<false/>
 	<key>IsAnalog</key>
 	<false/>
 	<key>Show24Hour</key>
-	<false/>
-	<key>ShowAMPM</key>
 	<true/>
+	<key>ShowAMPM</key>
+	<false/>
 	<key>ShowDayOfMonth</key>
-	<false/>
+	<true/>
 	<key>ShowDayOfWeek</key>
-	<false/>
+	<true/>
 	<key>ShowSeconds</key>
 	<false/>
 </dict>
 </plist>
 ```
+
+<br />
 
 The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDayOfMonth`, `ShowDayOfWeek` and `ShowSeconds`. 
 
@@ -101,7 +103,7 @@ Prior to Big Sur, only the `DateFormat` key need be set using a single `defaults
 
 ### *24-Hour Time* Option
 
-This option can be found in System Preferences > Language & Region > General and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option existed in Catalina too, but doesn't appear to assert the same control as it does in Big Sur. 
+This option can be found in System Preferences > Language & Region > General and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option exists in Catalina too, but doesn't appear to assert the same control as it does in Big Sur. 
 
 While this option can be checked or unchecked from within System Preferences, it can be toggled from the command line using the `AppleICUForce12HourTime` key in the `.GlobalPreferences` domain.
 
@@ -111,7 +113,7 @@ Any attempt to set the date and time format from the command line should ensure 
 
 <br />
 
-### `SystemUIServer` Process
+### SystemUIServer Process
 
 Prior to Big Sur, restarting the `SystemUIServer` process updated the date and time format of the menu bar clock with any changes to the `DateFormat` key.
 
