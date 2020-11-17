@@ -29,53 +29,60 @@
     done
 
 
-# Process the format string
+# Process the new format string
     if [ -z $invalid ]; then        # If $invalid is unset, the format string is valid
 
+    # Quit System Preferences
         killall System\ Preferences > /dev/null 2>&1
 
+    # The date and time format is irrelevant unless the menu bar displays a digital clock
+        defaults write com.apple.menuextra.clock.plist IsAnalog -bool false
+
+    # Set the new format string 
         defaults write com.apple.menuextra.clock.plist DateFormat -string "$1"
 
-    # Day (Thu)
+    # Set the various keys based upon the new format string
+        # Day (Thu)
         if [[ $1 == *"EEE"* ]]; then
             defaults write com.apple.menuextra.clock.plist ShowDayOfWeek -bool true
         else
             defaults write com.apple.menuextra.clock.plist ShowDayOfWeek -bool false
         fi
 
-    # Date (18 Aug)
+        # Date (18 Aug)
         if [[ $1 == *"d MMM"* ]]; then
             defaults write com.apple.menuextra.clock.plist ShowDayOfMonth -bool true
         else
             defaults write com.apple.menuextra.clock.plist ShowDayOfMonth -bool false
         fi
 
-    # 24-hour time (23:46)
+        # 24-hour time (23:46)
         if [[ $1 == *"HH:mm"* ]]; then
             defaults delete -g AppleICUForce12HourTime > /dev/null 2>&1
             defaults write com.apple.menuextra.clock.plist Show24Hour -bool true
         fi    
         
-    # 12-hour time (11:46)
+        # 12-hour time (11:46)
         if [[ $1 == *"h:mm"* ]]; then
             defaults write -g AppleICUForce12HourTime -bool true
             defaults write com.apple.menuextra.clock.plist Show24Hour -bool false
         fi
 
-    # Seconds (:18)
+        # Seconds (:18)
         if [[ $1 == *"ss"* ]]; then
             defaults write com.apple.menuextra.clock.plist ShowSeconds -bool true
         else
             defaults write com.apple.menuextra.clock.plist ShowSeconds -bool false
         fi
 
-    # AM/PM (am|pm)
+        # AM/PM (am|pm)
         if [[ $1 == *"a"* ]]; then
             defaults write com.apple.menuextra.clock.plist ShowAMPM -bool true
         else
             defaults write com.apple.menuextra.clock.plist ShowAMPM -bool false       
         fi
         
+    # Restart the ControlCenter process for changes to take effect
         killall ControlCenter
 
     else                            # If $invalid is set, the format string is invalid
