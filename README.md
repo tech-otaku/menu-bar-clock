@@ -23,7 +23,7 @@ Set the date and time format of the menu bar clock from the command line in macO
 
 ## Usage
 
-| Date & Time              | Command Line                               | 
+| Menu Bar Clock <sup>**1**<sup>             | Command Line                               | 
 |-------------------------:|:-------------------------------------------|
 |    `Thu 18 Aug 23:46:18` | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss"` | 
 |           `Thu 23:46:18` | `./menu-bar-clock.sh "EEE HH:mm:ss"`       | 
@@ -49,6 +49,12 @@ Set the date and time format of the menu bar clock from the command line in macO
 |              `Thu 11:46` | `./menu-bar-clock.sh "EEE h:mm"`           | 
 |           `18 Aug 11:46` | `./menu-bar-clock.sh "d MMM h:mm"`         | 
 |                  `11:46` | `./menu-bar-clock.sh "h:mm"`               | 
+
+<br />
+
+<sup>**1**</sup> These are localised and based on a *Region* setting of *United Kingdom* in System Preferences > Language & Region > General. Other *Regions* may display the menu bar clock differently.
+
+<br />
 
 ## Background
 
