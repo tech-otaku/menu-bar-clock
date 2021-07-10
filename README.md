@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Set the date and time format of the menu bar clock from the command line in macOS Big Sur. 
+Set the date and time format of the menu bar clock from the command line in macOS 11 Big Sur or later. 
 
 ## Instructions
 
@@ -58,9 +58,9 @@ Set the date and time format of the menu bar clock from the command line in macO
 
 ## Background
 
-Prior to macOS Big Sur 11.0, setting the [date and time format of the menu bar clock](https://www.tech-otaku.com/mac/setting-the-date-and-time-format-for-the-macos-menu-bar-clock-using-terminal/) from the command line was relatively trivial.
+Prior to macOS 11 Big Sur, setting the [date and time format of the menu bar clock](https://www.tech-otaku.com/mac/setting-the-date-and-time-format-for-the-macos-menu-bar-clock-using-terminal/) from the command line was relatively trivial.
 
-Challenges to setting the date and time format of the menu bar clock introduced in macOS Big Sur include:
+Challenges to setting the date and time format of the menu bar clock introduced in macOS 11 Big Sur include:
 
 - Additional keys in the `com.apple.menuextra.clock` domain.
 
@@ -72,7 +72,7 @@ Challenges to setting the date and time format of the menu bar clock introduced 
 
 ### Additional Keys
 
-In macOS Big Sur the structure of `com.apple.menuextra.clock.plist` has changed:
+In macOS 11 Big Sur and later, the structure of `com.apple.menuextra.clock.plist` has changed:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -103,13 +103,13 @@ In macOS Big Sur the structure of `com.apple.menuextra.clock.plist` has changed:
 
 The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDayOfMonth`, `ShowDayOfWeek` and `ShowSeconds`. 
 
-Prior to Big Sur, only the `DateFormat` key need be set using a single `defaults write` command. Now, multiple `defaults write` commands are required to set the `DateFormat` key together with the 5 additional keys. 
+Prior to macOS 11 Big Sur, only the `DateFormat` key need be set using a single `defaults write` command. Now, multiple `defaults write` commands are required to set the `DateFormat` key together with the 5 additional keys. 
 
 <br />
 
 ### *24-Hour Time* Option
 
-This option can be found in System Preferences > Language & Region > General and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option exists in Catalina too, but doesn't appear to assert the same control as it does in Big Sur. 
+This option can be found in System Preferences > Language & Region > General and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option exists in Catalina too, but doesn't appear to assert the same control as it does in macOS 11 Big Sur or later. 
 
 While this option can be checked or unchecked from within System Preferences, it can be toggled from the command line using the `AppleICUForce12HourTime` key in the `.GlobalPreferences` domain.
 
@@ -121,9 +121,9 @@ Any attempt to set the date and time format from the command line should ensure 
 
 ### SystemUIServer Process
 
-Prior to Big Sur, restarting the `SystemUIServer` process updated the date and time format of the menu bar clock with any changes to the `DateFormat` key.
+Prior to macOS 11 Big Sur, restarting the `SystemUIServer` process updated the date and time format of the menu bar clock with any changes to the `DateFormat` key.
 
-This is no longer true in Big Sur. The process that controls the menu bar clock is `ControlCenter` which needs to be restarted (killed) after changes have been made to the `com.apple.menuextra.clock` and `.GlobalPreferences` domains.  
+This is no longer true in macOS 11 Big Sur or later. The process that controls the menu bar clock is `ControlCenter` which needs to be restarted (killed) after changes have been made to the `com.apple.menuextra.clock` and `.GlobalPreferences` domains.  
 
 
 

@@ -8,9 +8,9 @@
 # EXAMPLE:  ./menu-bar-clock.sh "EEE d MMM HH:mm"
 
 
-# Exit with error if installed macOS version is not 11
+# Exit with error if installed macOS version is not macOS 11 Big Sur or later
     if [ $(system_profiler SPSoftwareDataType | awk '/System Version/ {print $4}' | cut -d . -f 1) -lt 11 ]; then
-        printf "ERROR: For use with macOS Big Sur 11.0 only.\n"
+        printf "ERROR: For use with macOS 11 Big Sur or later.\n"
         exit 1
     fi
 
