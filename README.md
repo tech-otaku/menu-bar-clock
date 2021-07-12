@@ -1,5 +1,7 @@
 # menu-bar-clock
 
+Compatible with macOS from macOS 11 Big Sur up to and including macOS 12 Monterey Developer Beta 2 [21A5268h].
+
 ## Purpose
 
 Set the date and time format of the menu bar clock from the command line in macOS 11 Big Sur or later. 
