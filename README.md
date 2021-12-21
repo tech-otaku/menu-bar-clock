@@ -1,6 +1,6 @@
 # menu-bar-clock
 
-Compatible with macOS from macOS 11 Big Sur up to and including macOS 12 Monterey Developer Beta 2 [21A5268h].
+Compatible with macOS 11 Big Sur and later.
 
 ## Purpose
 
@@ -56,15 +56,15 @@ Please note, the script simply mimics what can otherwise be achieved by setting 
 
 <br />
 
-<sup>**1**</sup> These are localised and based on a *Region* setting of *United Kingdom* in System Preferences > Language & Region > General. Other *Regions* may display the same date and time format differently. For example, the format `"EEE d MMM HH:mm"` is displayed differently in the following regions:
+<sup>**1**</sup> These are localised and based on a *Region* setting of *United Kingdom* in System Preferences > Language & Region > General. Other *Regions* may display the same date and time format differently. For example, the format `"EEE d MMM HH:mm"` is displayed differently for the following *Region* settings:
 
-| Region         | Display             |
-|----------------|---------------------|
+| Region Setting | Display               |
+|----------------|-----------------------|
 | United Kingdom | `Thu 18 Aug 23:46`    |
 | United States  | `Thu Aug 28 23:46`    |
 | France         | `Thu 28 Aug at 23:46` |
 | Germany        | `Thu 28. Aug 23:46`   |
-| Czechia        | `Thu 28. 8. 23:46`     |
+| Czechia        | `Thu 28. 8. 23:46`    |
 
 
 <br />
