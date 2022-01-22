@@ -4,7 +4,7 @@ Compatible with macOS 11 Big Sur and later.
 
 ## Purpose
 
-Set the date and time format of the menu bar clock from the command line in macOS 11 Big Sur or later. 
+Set the date and time format of the menu bar clock from the command line in macOS 11 Big Sur and later. 
 
 Please note, the script simply mimics what can otherwise be achieved by setting the format through System Preferences. It is therefore limited to the formats defined by Apple.
 
@@ -65,6 +65,8 @@ Please note, the script simply mimics what can otherwise be achieved by setting 
 | France         | `Thu 28 Aug at 23:46` |
 | Germany        | `Thu 28. Aug 23:46`   |
 | Czechia        | `Thu 28. 8. 23:46`    |
+
+In addition, the primary preferred language setting also in System Preferences > Language & Region > General [may affect how the date and time is displayed](https://github.com/tech-otaku/menu-bar-clock/issues/8#issuecomment-1019289477).
 
 
 <br />
