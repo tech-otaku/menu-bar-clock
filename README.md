@@ -2,6 +2,8 @@
 
 Compatible with macOS 11 Big Sur and later.
 
+IMPORTANT: Until I have the opportunity to fix it, please note that [changes in macOS Monterey 12.4 have temporarily broken this script](https://github.com/tech-otaku/menu-bar-clock/issues/9).
+
 ## Purpose
 
 Set the date and time format of the menu bar clock from the command line in macOS 11 Big Sur and later. 
