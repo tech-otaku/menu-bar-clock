@@ -2,7 +2,7 @@
 
 Compatible with macOS 11 Big Sur and later.
 
-IMPORTANT: Until I have the opportunity to fix it, please note that [changes in macOS Monterey 12.4 have temporarily broken this script](https://github.com/tech-otaku/menu-bar-clock/issues/9).
+~~IMPORTANT: Until I have the opportunity to fix it, please note that [changes in macOS Monterey 12.4 have temporarily broken this script](https://github.com/tech-otaku/menu-bar-clock/issues/9).~~
 
 ## Purpose
 
@@ -26,35 +26,60 @@ Please note, the script simply mimics what can otherwise be achieved by setting 
 
     1. use one of the commands under the *Command Line* heading in the table below to set the required date and time format
 
+## Changes in macOS Monterey 12.4
+
+Starting with macOS Monterey 12.4 Apple have made changes to the *Show date* option in System Preferences > Dock & Menu Bar > Clock. Previously, it was either checked or unchecked and set the value of the `ShowDayOfMonth` key in the `com.apple.menuextra.clock` domain to either `true` or `false` respectively. This key now appears redundant. Instead, the *Show date* option offers 3 new choices which are written to a new key in the `com.apple.menuextra.clock` domain named `ShowDate`.
+
+| *Show date*       | `ShowDate` |
+|-------------------|-----------:|
+| when space allows |        `0` |
+| always            |        `1` |
+| never             |        `2` |
+
 
 ## Usage
 
-| Menu Bar Clock <sup>**1**<sup>             | Command Line                               | 
-|-------------------------:|:-------------------------------------------|
-|    `Thu 18 Aug 23:46:18` | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss"` | 
-|           `Thu 23:46:18` | `./menu-bar-clock.sh "EEE HH:mm:ss"`       | 
-|        `18 Aug 23:46:18` | `./menu-bar-clock.sh "d MMM HH:mm:ss"`     | 
-|               `23:46:18` | `./menu-bar-clock.sh "HH:mm:ss"`           | 
-| `Thu 18 Aug 11:46:18 pm` | `./menu-bar-clock.sh "EEE d MMM h:mm:ss a"`| 
-|        `Thu 11:46:18 pm` | `./menu-bar-clock.sh "EEE h:mm:ss a"`      | 
-|     `18 Aug 11:46:18 pm` | `./menu-bar-clock.sh "d MMM h:mm:ss a"`    | 
-|            `11:46:18 pm` | `./menu-bar-clock.sh "h:mm:ss a"`          | 
-|    `Thu 18 Aug 11:46:18` | `./menu-bar-clock.sh "EEE d MMM h:mm:ss"`  | 
-|           `Thu 11:46:18` | `./menu-bar-clock.sh "EEE h:mm:ss"`        | 
-|        `18 Aug 11:46:18` | `./menu-bar-clock.sh "d MMM h:mm:ss"`      | 
-|               `11:46:18` | `./menu-bar-clock.sh "h:mm:ss"`            | 
-|       `Thu 18 Aug 23:46` | `./menu-bar-clock.sh "EEE d MMM HH:mm"`    | 
-|              `Thu 23:46` | `./menu-bar-clock.sh "EEE HH:mm"`          | 
-|           `18 Aug 23:46` | `./menu-bar-clock.sh "d MMM HH:mm"`        | 
-|                  `23:46` | `./menu-bar-clock.sh "HH:mm"`              | 
-|    `Thu 18 Aug 11:46 pm` | `./menu-bar-clock.sh "EEE d MMM h:mm a"`   | 
-|           `Thu 11:46 pm` | `./menu-bar-clock.sh "EEE h:mm a"`         | 
-|        `18 Aug 11:46 pm` | `./menu-bar-clock.sh "d MMM h:mm a"`       | 
-|               `11:46 pm` | `./menu-bar-clock.sh "h:mm a"`             | 
-|       `Thu 18 Aug 11:46` | `./menu-bar-clock.sh "EEE d MMM h:mm"`     | 
-|              `Thu 11:46` | `./menu-bar-clock.sh "EEE h:mm"`           | 
-|           `18 Aug 11:46` | `./menu-bar-clock.sh "d MMM h:mm"`         | 
-|                  `11:46` | `./menu-bar-clock.sh "h:mm"`               | 
+To support the changes to the *Show date* option in macOS Monterey 12.4, the script accepts a new option: `-s`. The option need only be passed to the script when the desired date format contains `d MMM` i.e. `18 Aug` **and** you want that date portion displayed *when space allows*. In all other circumstances it can be omitted, as per the table below. 
+If the option is passed to the script it will be ignored when the date format doesn't contain `d MMM` or the installed macOS version is macOS Monterey 12.3.1 or earlier or macOS Big Sur 11.
+
+| Menu Bar Clock <sup>[**1**]</sup>             | Show date <sup>[**2**]</sup> | Command Line                               | 
+|-------------------------:|:------------------|:----------------------------------------------|
+|    `Thu 18 Aug 23:46:18` | always            | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss"`    |
+|    `Thu 18 Aug 23:46:18` | when space allows | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss" -s` | 
+|           `Thu 23:46:18` | N/A               | `./menu-bar-clock.sh "EEE HH:mm:ss"`          | 
+|        `18 Aug 23:46:18` | always            | `./menu-bar-clock.sh "d MMM HH:mm:ss"`        | 
+|        `18 Aug 23:46:18` | when space allows | `./menu-bar-clock.sh "d MMM HH:mm:ss" -s`     |
+|               `23:46:18` | N/A               | `./menu-bar-clock.sh "HH:mm:ss"`              | 
+| `Thu 18 Aug 11:46:18 pm` | always            | `./menu-bar-clock.sh "EEE d MMM h:mm:ss a"`   | 
+| `Thu 18 Aug 11:46:18 pm` | when space allows | `./menu-bar-clock.sh "EEE d MMM h:mm:ss a" -s`|
+|        `Thu 11:46:18 pm` | N/A               | `./menu-bar-clock.sh "EEE h:mm:ss a"`         | 
+|     `18 Aug 11:46:18 pm` | always            | `./menu-bar-clock.sh "d MMM h:mm:ss a"`       | 
+|     `18 Aug 11:46:18 pm` | when space allows | `./menu-bar-clock.sh "d MMM h:mm:ss a" -s`    | 
+|            `11:46:18 pm` | N/A               | `./menu-bar-clock.sh "h:mm:ss a"`             | 
+|    `Thu 18 Aug 11:46:18` | always            | `./menu-bar-clock.sh "EEE d MMM h:mm:ss"`     | 
+|    `Thu 18 Aug 11:46:18` | when space allows | `./menu-bar-clock.sh "EEE d MMM h:mm:ss" -s`  | 
+|           `Thu 11:46:18` | N/A               | `./menu-bar-clock.sh "EEE h:mm:ss"`           | 
+|        `18 Aug 11:46:18` | always            | `./menu-bar-clock.sh "d MMM h:mm:ss"`         | 
+|        `18 Aug 11:46:18` | when space allows | `./menu-bar-clock.sh "d MMM h:mm:ss" -s`      |
+|               `11:46:18` | N/A               | `./menu-bar-clock.sh "h:mm:ss"`               | 
+|       `Thu 18 Aug 23:46` | always            | `./menu-bar-clock.sh "EEE d MMM HH:mm"`       | 
+|       `Thu 18 Aug 23:46` | when space allows | `./menu-bar-clock.sh "EEE d MMM HH:mm" -s`    |
+|              `Thu 23:46` | N/A               | `./menu-bar-clock.sh "EEE HH:mm"`             | 
+|           `18 Aug 23:46` | always            | `./menu-bar-clock.sh "d MMM HH:mm"`           |
+|           `18 Aug 23:46` | when space allows | `./menu-bar-clock.sh "d MMM HH:mm" -s`        | 
+|                  `23:46` | N/A               | `./menu-bar-clock.sh "HH:mm"`                 | 
+|    `Thu 18 Aug 11:46 pm` | always            | `./menu-bar-clock.sh "EEE d MMM h:mm a"`      |
+|    `Thu 18 Aug 11:46 pm` | when space allows | `./menu-bar-clock.sh "EEE d MMM h:mm a" -s`   | 
+|           `Thu 11:46 pm` | N/A               | `./menu-bar-clock.sh "EEE h:mm a"`            | 
+|        `18 Aug 11:46 pm` | always            | `./menu-bar-clock.sh "d MMM h:mm a"`          |
+|        `18 Aug 11:46 pm` | when space allows | `./menu-bar-clock.sh "d MMM h:mm a" -s`       | 
+|               `11:46 pm` | N/A               | `./menu-bar-clock.sh "h:mm a"`                | 
+|       `Thu 18 Aug 11:46` | always            | `./menu-bar-clock.sh "EEE d MMM h:mm"`        |
+|       `Thu 18 Aug 11:46` | when space allows | `./menu-bar-clock.sh "EEE d MMM h:mm" -s`     | 
+|              `Thu 11:46` | N/A               | `./menu-bar-clock.sh "EEE h:mm"`              | 
+|           `18 Aug 11:46` | always            | `./menu-bar-clock.sh "d MMM h:mm"`            | 
+|           `18 Aug 11:46` | when space allows | `./menu-bar-clock.sh "d MMM h:mm" -s`         |
+|                  `11:46` | N/A               | `./menu-bar-clock.sh "h:mm"`                  | 
 
 <br />
 
@@ -70,8 +95,7 @@ Please note, the script simply mimics what can otherwise be achieved by setting 
 
 In addition, the primary preferred language setting also in System Preferences > Language & Region > General [may affect how the date and time is displayed](https://github.com/tech-otaku/menu-bar-clock/issues/8#issuecomment-1019289477).
 
-
-<br />
+<sup>**2**</sup> Since macOS Monterey 12.4
 
 ## Background
 
@@ -85,7 +109,7 @@ Challenges to setting the date and time format of the menu bar clock introduced 
 
 - The `SystemUIServer` process no longer appears responsible for displaying the date and time in the menu bar. 
 
-<br />
+
 
 ### Additional Keys
 
@@ -106,7 +130,9 @@ In macOS 11 Big Sur and later, the structure of `com.apple.menuextra.clock.plist
 	<true/>
 	<key>ShowAMPM</key>
 	<false/>
-	<key>ShowDayOfMonth</key>
+    <key>ShowDate</key>         <--- New key as of macOS Monterey 12.4
+	<integer>0</integer>
+	<key>ShowDayOfMonth</key>   <--- Appears redundant as of macOS Monterey 12.4
 	<true/>
 	<key>ShowDayOfWeek</key>
 	<true/>
@@ -118,11 +144,12 @@ In macOS 11 Big Sur and later, the structure of `com.apple.menuextra.clock.plist
 
 <br />
 
-The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDayOfMonth`, `ShowDayOfWeek` and `ShowSeconds`. 
+The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDate` <sup>[**2**]</sup>, ~~`ShowDayOfMonth`~~<sup>[**2**]</sup>, `ShowDayOfWeek` and `ShowSeconds`. 
 
 Prior to macOS 11 Big Sur, only the `DateFormat` key need be set using a single `defaults write` command. Now, multiple `defaults write` commands are required to set the `DateFormat` key together with the 5 additional keys. 
 
-<br />
+<sup>**2**</sup> Since macOS Monterey 12.4
+
 
 ### *24-Hour Time* Option
 
@@ -134,13 +161,12 @@ When the option is *unchecked*, the `AppleICUForce12HourTime` key has a boolean 
 
 Any attempt to set the date and time format from the command line should ensure that this key exists or not based on the values of the `Show24Hour` and `ShowAMPM` keys, or vice versa.
 
-<br />
 
 ### SystemUIServer Process
 
 Prior to macOS 11 Big Sur, restarting the `SystemUIServer` process updated the date and time format of the menu bar clock with any changes to the `DateFormat` key.
 
-This is no longer true in macOS 11 Big Sur or later. The process that controls the menu bar clock is `ControlCenter` which needs to be restarted (killed) after changes have been made to the `com.apple.menuextra.clock` and `.GlobalPreferences` domains.  
+This is no longer true in macOS 11 Big Sur or later. The process that controls the menu bar clock is `ControlCenter` which needs to be restarted (killed) after changes have been made to the `com.apple.menuextra.clock` and `.GlobalPreferences` domains. 
 
 
 
