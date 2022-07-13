@@ -1,6 +1,9 @@
 # menu-bar-clock
 
-[^1]: Since macOS Monterey 12.4.
+[^1]: Known as System Preferences prior to macOS Ventura 13
+[^2]: Since macOS Ventura 13
+[^3]: Since macOS Monterey 12.4
+
 
 Compatible with macOS Big Sur 11 and later.
 
@@ -10,7 +13,7 @@ Compatible with macOS Big Sur 11 and later.
 
 Set the date and time format of the menu bar clock from the command line in macOS Big Sur 11 and later. 
 
-Please note, the script simply mimics what can otherwise be achieved by setting the format through System Preferences. It is therefore limited to the formats defined by Apple.
+Please note, the script simply mimics what can otherwise be achieved by setting the format through System Settings[^1] ~~System Preferences~~. It is therefore limited to the formats defined by Apple.
 
 ## Instructions
 
@@ -30,7 +33,7 @@ Please note, the script simply mimics what can otherwise be achieved by setting 
 
 ## Changes in macOS Monterey 12.4
 
-Starting with macOS Monterey 12.4, Apple have made changes to the *Show date* option in System Preferences > Dock & Menu Bar > Clock. Previously, it was either checked or unchecked and set the value of the `ShowDayOfMonth` key in the `com.apple.menuextra.clock` domain to either `true` or `false` respectively. This key now appears redundant. Instead, the *Show date* option offers 3 new choices which are written to a new key in the `com.apple.menuextra.clock` domain named `ShowDate`.
+Starting with macOS Monterey 12.4, Apple have made changes to the *Show date* option in System Settings > Desktop & Dock > Clock Options...[^2] ~~System Preferences > Dock & Menu Bar > Clock~~. Previously, it was either checked or unchecked and set the value of the `ShowDayOfMonth` key in the `com.apple.menuextra.clock` domain to either `true` or `false` respectively. This key now appears redundant. Instead, the *Show date* option offers 3 new choices which are written to a new key in the `com.apple.menuextra.clock` domain named `ShowDate`.
 
 | *Show date*       | `ShowDate` |
 |-------------------|-----------:|
@@ -44,7 +47,7 @@ Starting with macOS Monterey 12.4, Apple have made changes to the *Show date* op
 To support the changes to the *Show date* option in macOS Monterey 12.4, the script accepts a new option: `-s`. The option need only be passed to the script when the desired date format contains `d MMM` i.e. `18 Aug` **and** you want that date portion displayed *when space allows*. In all other circumstances it can be omitted, as per the table below. 
 If the option is passed to the script it will be ignored when the date format doesn't contain `d MMM` or the installed macOS version is macOS Monterey 12.3.1 or earlier or macOS Big Sur 11.
 
-| Menu Bar Clock           | Show date [^1] | Command Line                               | 
+| Menu Bar Clock           | Show date [^3] | Command Line                               | 
 |-------------------------:|:------------------|:----------------------------------------------|
 |    `Thu 18 Aug 23:46:18` | always            | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss"`    |
 |    `Thu 18 Aug 23:46:18` | when space allows | `./menu-bar-clock.sh "EEE d MMM HH:mm:ss" -s` | 
@@ -85,7 +88,7 @@ If the option is passed to the script it will be ignored when the date format do
 
 <br />
 
-The **Menu Bar Clock** values in the table above are localised and based on a *Region* setting of *United Kingdom* in System Preferences > Language & Region > General. Other *Regions* may display the same date and time format differently. For example, the format `"EEE d MMM HH:mm"` is displayed differently for the following *Region* settings:
+The **Menu Bar Clock** values in the table above are localised and based on a *Region* setting of *United Kingdom* in System Settings > General >  Language & Region[^2] ~~System Preferences > Language & Region > General~~. Other *Regions* may display the same date and time format differently. For example, the format `"EEE d MMM HH:mm"` is displayed differently for the following *Region* settings:
 
 | Region Setting | Display               |
 |----------------|-----------------------|
@@ -95,7 +98,7 @@ The **Menu Bar Clock** values in the table above are localised and based on a *R
 | Germany        | `Thu 28. Aug 23:46`   |
 | Czechia        | `Thu 28. 8. 23:46`    |
 
-In addition, the primary preferred language setting also in System Preferences > Language & Region > General [may affect how the date and time is displayed](https://github.com/tech-otaku/menu-bar-clock/issues/8#issuecomment-1019289477).
+In addition, the primary preferred language setting also in System Settings > General >  Language & Region[^2] ~~System Preferences > Language & Region > General~~ [may affect how the date and time is displayed](https://github.com/tech-otaku/menu-bar-clock/issues/8#issuecomment-1019289477).
 
 ## Background
 
@@ -105,7 +108,7 @@ Challenges to setting the date and time format of the menu bar clock introduced 
 
 - Additional keys in the `com.apple.menuextra.clock` domain.
 
-- A (re-purposed?) *24-Hour Time* option in System Preferences which overrides time settings.
+- A (re-purposed?) *24-Hour Time* option in System Settings[^1] ~~System Preferences~~ which overrides time settings.
 
 - The `SystemUIServer` process no longer appears responsible for displaying the date and time in the menu bar. 
 
@@ -144,18 +147,18 @@ In macOS Big Sur 11 and later, the structure of `com.apple.menuextra.clock.plist
 
 <br />
 
-The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDate` [^1], ~~`ShowDayOfMonth`~~[^1], `ShowDayOfWeek` and `ShowSeconds`. 
+The additional keys are `Show24Hour`, `ShowAMPM`, `ShowDate` [^3], ~~`ShowDayOfMonth`~~[^3], `ShowDayOfWeek` and `ShowSeconds`. 
 
 Prior to macOS Big Sur 11, only the `DateFormat` key need be set using a single `defaults write` command. Now, multiple `defaults write` commands are required to set the `DateFormat` key together with the 5 additional keys. 
 
 
 ### *24-Hour Time* Option
 
-This option can be found in System Preferences > Language & Region > General and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option exists in Catalina too, but doesn't appear to assert the same control as it does in macOS Big Sur 11 and later. 
+This option can be found in System Settings > General > Date & Time[^2] ~~System Preferences > Language & Region > General~~ and may override the keys `Show24Hour` and `ShowAMPM` depending on their values. It is also used to format the display of dates and times in the Finder. This option exists in Catalina too, but doesn't appear to assert the same control as it does in macOS Big Sur 11 and later. 
 
-While this option can be checked or unchecked from within System Preferences, it can be toggled from the command line using the `AppleICUForce12HourTime` key in the `.GlobalPreferences` domain.
+While this option can be turned on ~~checked~~ or off ~~unchecked~~ from within System Settings[^1] ~~System Preferences~~, it can be toggled from the command line using the `AppleICUForce12HourTime` key in the `.GlobalPreferences` domain.
 
-When the option is *unchecked*, the `AppleICUForce12HourTime` key has a boolean value of `true`. When *checked*, the key is deleted from the `.GlobalPreferences` domain. 
+When the option is *off* ~~*unchecked*~~, the `AppleICUForce12HourTime` key has a boolean value of `true`. When *on* ~~*checked*~~, the key is deleted from the `.GlobalPreferences` domain. 
 
 Any attempt to set the date and time format from the command line should ensure that this key exists or not based on the values of the `Show24Hour` and `ShowAMPM` keys, or vice versa.
 
