@@ -132,7 +132,7 @@ EOF
 
     # Quit System Settings (previously System Preferences prior to macOS Ventura 13)
         SETTINGS="System Settings"
-        if [[ $major -ge 13 ]]; then
+        if [[ $major -lt 13 ]]; then
             SETTINGS="System Preferences"
         fi
 
