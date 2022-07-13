@@ -130,8 +130,13 @@ EOF
         major=$(system_profiler SPSoftwareDataType | awk '/System Version/ {print $4}' | cut -d . -f 1)
         minor=$(system_profiler SPSoftwareDataType | awk '/System Version/ {print $4}'| cut -d . -f 2)
 
-    # Quit System Preferences
-        killall System\ Preferences > /dev/null 2>&1
+    # Quit System Settings (previously System Preferences prior to macOS Ventura 13)
+        SETTINGS="System Settings"
+        if [[ $major -ge 13 ]]; then
+            SETTINGS="System Preferences"
+        fi
+
+        killall "$SETTINGS" 2> /dev/null                        # Write STDERR to /dev/null to supress message if process isn't running
 
     # The date and time format is irrelevant unless the menu bar displays a digital clock
         defaults write com.apple.menuextra.clock.plist IsAnalog -bool false
