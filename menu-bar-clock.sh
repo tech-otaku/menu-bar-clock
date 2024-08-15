@@ -213,6 +213,6 @@ EOF
 
     else                            # If $invalid is set, the format string is invalid
 
-        printf "\nERROR: * * * '%s' is NOT a valid Apple-supplied date and time format string for the menu bar clock * * *\n\n" "$FORMATSTRING"
+        printf "\nERROR: * * * '%s' is NOT a valid Apple-defined date and time format string for the menu bar clock * * *\n\n" "$FORMATSTRING"
 
     fi
